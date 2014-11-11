@@ -7,4 +7,4 @@ services the Gauteng Metropolitan area.
 
 I have done additional work to expose the original services through a REST API.
 
-More documentation to follow.      Itinerar
+More documentation to follow.
