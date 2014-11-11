@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sun-web-app>
+    <context-root>/train-timetables</context-root>
+</sun-web-app>
