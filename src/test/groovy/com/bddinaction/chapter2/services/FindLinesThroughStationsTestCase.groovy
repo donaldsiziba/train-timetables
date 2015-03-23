@@ -19,6 +19,6 @@ class FindLinesThroughStationsTestCase extends Specification {
             departure     | destination    | lineName      | lineDeparture
             "Midrand"     | "Park"         | "North-South" | "Hatfield"
             "Sandton"     | "Rhodesfield"  | "East-West"   | "Sandton"
-            "Malboro"     | "OR Tambo"     | "Aiport"      | "Sandton"
+            "Malboro"     | "OR Tambo"     | "Airport"     | "Sandton"
     }
 }
