@@ -17,7 +17,7 @@ public class InMemoryTimetableService implements TimetableService {
                                  .withStations("Hatfield", "Pretoria","Centurion","Midrand", "Malboro", "Sandton", "Rosebank", "Park"),
             Line.named("East-West").departingFrom("Sandton")
                                  .withStations("Sandton", "Malboro", "Rhodesfield"),
-            Line.named("Aiport").departingFrom("Sandton")
+            Line.named("Airport").departingFrom("Sandton")
                                  .withStations("Sandton", "Malboro", "OR Tambo")
     );
 
