@@ -114,6 +114,10 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>2.14</version>
                         <configuration>
+                            <includes>
+                                <include>**/*Specification.java</include>
+                                <include>**/*TestCase.java</include>
+                            </includes>
                             <excludes>
                                 <exclude>**/*IntegrationTestCase.java</exclude>
                                 <exclude>**/*TestSuite.java</exclude>

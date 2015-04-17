@@ -1,7 +1,8 @@
-package com.bddinaction.chapter2.web;
+package com.bddinaction.chapter2.web.controller;
 
 import com.bddinaction.chapter2.services.ItineraryService;
 import com.bddinaction.chapter2.services.TimetableService;
+import com.bddinaction.chapter2.web.ItineraryController;
 import org.joda.time.LocalTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,7 +61,7 @@ public class ItineraryControllerTestCase {
 
     @Test
     public void arrivalTime() throws Exception {
-        when(timetableService.getArrivalTime("North-South", "Park")).thenReturn(new LocalTime(8,26));
+        when(timetableService.getArrivalTime("North-South", "Park")).thenReturn(at(8, 26));
 
         mockMvc.perform(get("/itinerary/arrivaltime/line/North-South/to/Park/at/8:05"))
                     .andExpect(status().is2xxSuccessful());

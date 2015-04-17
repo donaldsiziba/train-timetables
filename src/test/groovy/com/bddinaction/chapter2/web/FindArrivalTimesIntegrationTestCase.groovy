@@ -39,6 +39,7 @@ class FindArrivalTimesIntegrationTestCase extends Specification {
         then: "the response code should 200"
             assertThat(response.getStatusLine().getStatusCode()).isEqualTo(HttpStatus.SC_OK)
 
+        and: "the proposed times should be equal to the actual times"
             final Gson gson = new GsonBuilder().setPrettyPrinting().create()
             final String jsonResponse = gson.toJson(EntityUtils.toString(response.getEntity()))
             logger.info("Json Response: {}", jsonResponse)
