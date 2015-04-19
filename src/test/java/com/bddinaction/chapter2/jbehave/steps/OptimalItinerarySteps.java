@@ -20,11 +20,19 @@ import static org.fest.assertions.Assertions.assertThat;
 
 public class OptimalItinerarySteps {
     final Logger logger = LoggerFactory.getLogger(OptimalItinerarySteps.class);
+    String protocol;
+    String host;
     String port;
     String uri;
     CloseableHttpResponse response;
 
     public OptimalItinerarySteps() {
+        protocol = System.getProperty("protocol");
+        logger.info("Reading config property: protocol = {}", protocol);
+
+        host = System.getProperty("host");
+        logger.info("Reading config property: host = {}", host);
+
         port = System.getProperty("port");
         logger.info("Reading config property: port = {}", port);
     }
@@ -39,8 +47,8 @@ public class OptimalItinerarySteps {
 
     @When("I want to travel from $departure to $destination at $startTime")
     public void whenIWantToTravel(String departure, String destination, LocalTime startTime) throws IOException {
-        uri = String.format("http://localhost:%s/train-timetables/itinerary/departuretimes/from/%s/to/%s/at/%s", port,
-                departure, destination, startTime);
+        uri = String.format("%s://%s:%s/train-timetables/itinerary/departuretimes/from/%s/to/%s/at/%s", protocol, host,
+                port, departure, destination, startTime);
 
         logger.info("URI: {}", uri);
 
