@@ -1,6 +1,7 @@
 package com.bddinaction.chapter2.jbehave.steps;
 
 import com.bddinaction.chapter2.utilities.JsonBuilder;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -61,7 +62,7 @@ public class OptimalItinerarySteps {
         String json = EntityUtils.toString(response.getEntity());
         logger.info("Response: {}", json);
 
-        assertThat(new JsonBuilder().build(json, LocalTime.class)).isEqualTo(expectedTrainTimes);
+        assertThat(new JsonBuilder().build(json, new TypeReference<List<LocalTime>>() {})).isEqualTo(expectedTrainTimes);
     }
 }
 
