@@ -1,11 +1,6 @@
 package com.bddinaction.chapter2.jbehave.steps;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import org.apache.commons.lang.StringUtils;
+import com.bddinaction.chapter2.utilities.JsonBuilder;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -55,23 +50,10 @@ public class OptimalItinerarySteps {
 
     @Then("I should be told about the trains at: $expectedTrainTimes")
     public void shouldBeInformedAbout(List<LocalTime> expectedTrainTimes) throws IOException {
-        final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = EntityUtils.toString(response.getEntity());
+        logger.info("Response: {}", json);
 
-        final String jsonResponse = gson.toJson(EntityUtils.toString(response.getEntity()));
-        logger.info("Json Response: {}", jsonResponse);
-
-        final String strippedJsonResponse = jsonResponse.replace("\"", StringUtils.EMPTY);
-        logger.info("Stripped Json Response: {}", strippedJsonResponse);
-
-        List<LocalTime> proposedTrainTimes = mapper().readValue(strippedJsonResponse, new TypeReference<List<LocalTime>>() {
-        });
-        assertThat(proposedTrainTimes).isEqualTo(expectedTrainTimes);
-    }
-
-    private ObjectMapper mapper() {
-        final ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JodaModule());
-        return mapper;
+        assertThat(new JsonBuilder().build(json, LocalTime.class)).isEqualTo(expectedTrainTimes);
     }
 }
 

@@ -62,7 +62,10 @@ public class EstimatedArrivalTimeSteps {
 
     @Then("the estimated arrival time should be <arrival-time>")
     public void thenTheEstimatedArrivalTimeShouldBe(@Named("arrival-time") LocalTime expectedArrivalTime) throws IOException {
-        assertThat(new JsonBuilder().build(EntityUtils.toString(response.getEntity()), LocalTime.class))
+        String json = EntityUtils.toString(response.getEntity());
+        logger.info("Response: {}", json);
+
+        assertThat(new JsonBuilder().build(json, LocalTime.class))
                 .isEqualTo(expectedArrivalTime);
     }
 }

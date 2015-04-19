@@ -2,6 +2,7 @@ package com.bddinaction.chapter2.utilities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
@@ -46,5 +47,15 @@ public class JsonBuilder {
             logger.error("Exception throw... {}", e);
         }
         return null;
+    }
+
+    public <T> T build(final String value, final TypeReference reference) {
+        T object = null;
+        try {
+            object = mapper.readValue(value, reference);
+        } catch (IOException e) {
+            logger.error("Exception throw... {}", e);
+        }
+        return object;
     }
 }

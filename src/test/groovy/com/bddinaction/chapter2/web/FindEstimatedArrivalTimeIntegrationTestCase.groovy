@@ -1,10 +1,6 @@
 package com.bddinaction.chapter2.web
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.datatype.joda.JodaModule
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import org.apache.commons.lang.StringUtils
+import com.bddinaction.chapter2.utilities.JsonBuilder
 import org.apache.http.HttpStatus
 import org.apache.http.client.methods.CloseableHttpResponse
 import org.apache.http.client.methods.HttpGet
@@ -38,22 +34,9 @@ class FindEstimatedArrivalTimeIntegrationTestCase extends Specification {
             assertThat(response.getStatusLine().getStatusCode()).isEqualTo(HttpStatus.SC_OK)
 
         and: "the arrival time is 8:26"
-            final Gson gson =new GsonBuilder().setPrettyPrinting().create()
+            def json = EntityUtils.toString(response.getEntity())
+            logger.info("Response: {}", json)
 
-            final String jsonResponse = gson.toJson(EntityUtils.toString(response.getEntity()))
-            logger.info("Json Response: {}", jsonResponse)
-
-            final String strippedJsonResponse = jsonResponse.replace("\"", StringUtils.EMPTY)
-            logger.info("Stripped Json Response: {}", strippedJsonResponse)
-
-            LocalTime expectedTime = mapper().readValue(strippedJsonResponse, LocalTime.class)
-
-            assertThat(expectedTime).isEqualTo(new LocalTime(8,26))
-    }
-
-    def mapper() {
-        ObjectMapper mapper = new ObjectMapper()
-        mapper.registerModule(new JodaModule())
-        mapper
+            new JsonBuilder().build(json, LocalTime.class) == new LocalTime(8, 26)
     }
 }
