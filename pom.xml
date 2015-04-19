@@ -13,6 +13,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <thucydides.version>0.9.238</thucydides.version>
         <thucydides.jbehave.version>0.9.235</thucydides.jbehave.version>
+        <protocol>http</protocol>
+        <host>localhost</host>
         <port>10080</port>
         <spring.version>4.0.5.RELEASE</spring.version>
         <version.number>1.0.0-SNAPSHOT</version.number>
@@ -203,6 +205,14 @@
                         <version>2.17</version>
                         <configuration>
                             <systemProperties>
+                                <property>
+                                    <name>protocol</name>
+                                    <value>${protocol}</value>
+                                </property>
+                                <property>
+                                    <name>host</name>
+                                    <value>${host}</value>
+                                </property>
                                 <property>
                                     <name>port</name>
                                     <value>${port}</value>
