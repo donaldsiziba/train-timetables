@@ -39,14 +39,14 @@ public class JsonBuilder {
     }
 
     public <T> T build(final String value, Class<T> clazz) {
+        T object = null;
         try {
-            T object = mapper.readValue(value, clazz);
+            object = mapper.readValue(value, clazz);
             logger.info(mapper.writeValueAsString(object));
-            return object;
         } catch (IOException e) {
             logger.error("Exception thrown... {}", e);
         }
-        return null;
+        return object;
     }
 
     public <T> T build(final String value, final TypeReference reference) {
