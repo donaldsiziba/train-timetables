@@ -33,7 +33,7 @@ public class JsonBuilder {
             value = mapper.writeValueAsString(object);
             logger.info(value);
         } catch (JsonProcessingException e) {
-            logger.error("Exception throw... {}", e);
+            logger.error("Exception thrown... {}", e);
         }
         return value;
     }
@@ -44,7 +44,7 @@ public class JsonBuilder {
             logger.info(mapper.writeValueAsString(object));
             return object;
         } catch (IOException e) {
-            logger.error("Exception throw... {}", e);
+            logger.error("Exception thrown... {}", e);
         }
         return null;
     }
@@ -54,7 +54,7 @@ public class JsonBuilder {
         try {
             object = mapper.readValue(value, reference);
         } catch (IOException e) {
-            logger.error("Exception throw... {}", e);
+            logger.error("Exception thrown... {}", e);
         }
         return object;
     }
