@@ -12,8 +12,6 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import spock.lang.Specification
 
-import static org.fest.assertions.Assertions.assertThat
-
 /**
  * User: donald
  * Date: 2014/06/29
@@ -31,7 +29,7 @@ class FindEstimatedArrivalTimeIntegrationTestCase extends Specification {
             final CloseableHttpResponse response = client.execute(new HttpGet(uri))
 
         then: "the response code should 200"
-            assertThat(response.getStatusLine().getStatusCode()).isEqualTo(HttpStatus.SC_OK)
+            response.getStatusLine().getStatusCode() == HttpStatus.SC_OK
 
         and: "the arrival time is 8:26"
             def json = EntityUtils.toString(response.getEntity())

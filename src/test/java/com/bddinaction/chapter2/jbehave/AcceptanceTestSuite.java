@@ -1,6 +1,6 @@
 package com.bddinaction.chapter2.jbehave;
 
-import net.thucydides.jbehave.ThucydidesJUnitStories;
+import net.serenitybdd.jbehave.SerenityStories;
 
-public class AcceptanceTestSuite extends ThucydidesJUnitStories {
+public class AcceptanceTestSuite extends SerenityStories {
 }

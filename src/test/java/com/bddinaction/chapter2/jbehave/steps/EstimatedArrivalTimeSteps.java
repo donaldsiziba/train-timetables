@@ -16,8 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import static org.fest.assertions.Assertions.assertThat;
-
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class EstimatedArrivalTimeSteps {
     final Logger logger = LoggerFactory.getLogger(EstimatedArrivalTimeSteps.class);
@@ -49,7 +48,7 @@ public class EstimatedArrivalTimeSteps {
     @Given("the next train is scheduled to leave at <departure-time> on the <line> line")
     public void givenTheNextTrainIsScheduledToLeave(@Named("departure-time") LocalTime departureTime,
                                                     String line) {
-        uri = String.format("%s://%s:%s/train-timetables/itinerary/arrivaltime/line/%s/to/%s/at/%s", protocol,host,
+        uri = String.format("%s://%s:%s/train-timetables/itinerary/arrivaltime/line/%s/to/%s/at/%s", protocol, host,
                 port, line, destination, departureTime);
         logger.info("URI: {}", uri);
     }

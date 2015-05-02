@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.List;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class OptimalItinerarySteps {
     final Logger logger = LoggerFactory.getLogger(OptimalItinerarySteps.class);
@@ -62,7 +62,7 @@ public class OptimalItinerarySteps {
         String json = EntityUtils.toString(response.getEntity());
         logger.info("Response: {}", json);
 
-        assertThat(new JsonBuilder().build(json, new TypeReference<List<LocalTime>>() {})).isEqualTo(expectedTrainTimes);
+        assertThat(new JsonBuilder().<List<LocalTime>>build(json, new TypeReference<List<LocalTime>>() {})).isEqualTo(expectedTrainTimes);
     }
 }
 

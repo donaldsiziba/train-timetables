@@ -7,8 +7,6 @@ import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClientBuilder
 import spock.lang.Specification
 
-import static org.fest.assertions.Assertions.assertThat
-
 /**
  * User: donald
  * Date: 2014/06/28
@@ -24,6 +22,6 @@ class ApplicationSmokeScreenIntegrationTestCase extends Specification {
             final CloseableHttpResponse response = client.execute(new HttpGet(url))
 
         then: "the response should be 200"
-            assertThat(response.getStatusLine().getStatusCode()).isEqualTo(HttpStatus.SC_OK)
+            response.getStatusLine().getStatusCode() == HttpStatus.SC_OK
     }
 }
