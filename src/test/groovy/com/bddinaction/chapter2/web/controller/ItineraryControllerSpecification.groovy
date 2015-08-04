@@ -7,6 +7,7 @@ import org.joda.time.LocalTime
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.test.util.ReflectionTestUtils
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.ResultActions
 import spock.lang.Specification
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -31,11 +32,11 @@ class ItineraryControllerSpecification extends Specification {
 
     def "request for departure times"() {
         given:
-            def time = at(8, 0)
+            LocalTime time = at(8, 0)
             itineraryService.findNextDepartures("Midrand", "Park", time) >> [at(8, 5), at(8, 15), at(8, 25), at(8, 35)]
 
         when: "the following url is invoked"
-            def response = mockMvc.perform(get("/itinerary/departuretimes/from/Midrand/to/Park/at/8:00"))
+            ResultActions response = mockMvc.perform(get("/itinerary/departuretimes/from/Midrand/to/Park/at/8:00"))
 
         then: "the response code should indicate a success status"
             response.andExpect(status().is2xxSuccessful())
@@ -49,7 +50,7 @@ class ItineraryControllerSpecification extends Specification {
             timetableService.getArrivalTime("North-South", "Park") >> at(8, 26)
 
         when: "the following url is invoked"
-            def response = mockMvc.perform(get("/itinerary/arrivaltime/line/North-South/to/Park/at/8:05"))
+            ResultActions response = mockMvc.perform(get("/itinerary/arrivaltime/line/North-South/to/Park/at/8:05"))
 
         then: "the response code should indicate a success status"
             response.andExpect(status().is2xxSuccessful())

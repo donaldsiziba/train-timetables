@@ -13,9 +13,18 @@ import spock.lang.Specification
  * Time: 9:44 PM
  */
 class ApplicationSmokeScreenIntegrationTestCase extends Specification {
+    String protocol
+    String host
+    String port
+
+    def setup() {
+        protocol = System.getProperty("protocol")
+        host = System.getProperty("host")
+        port = System.getProperty("port")
+    }
     def "smoke screen test"() {
         given: "the following home page url"
-            final String url = "http://localhost:8082/train-timetables/index.jsp"
+            final String url = "$protocol://$host:$port/train-timetables/index.jsp"
 
         when: "the home page url is invoked"
             final CloseableHttpClient client = HttpClientBuilder.create().build()

@@ -17,6 +17,7 @@
         <protocol>http</protocol>
         <host>localhost</host>
         <port>10080</port>
+        <jetty.port>8280</jetty.port>
         <spring.version>4.0.5.RELEASE</spring.version>
         <version.number>1.0.0-SNAPSHOT</version.number>
     </properties>
@@ -132,6 +133,20 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <version>2.17</version>
                         <configuration>
+                            <systemProperties>
+                                <property>
+                                    <name>protocol</name>
+                                    <value>${protocol}</value>
+                                </property>
+                                <property>
+                                    <name>host</name>
+                                    <value>${host}</value>
+                                </property>
+                                <property>
+                                    <name>port</name>
+                                    <value>${jetty.port}</value>
+                                </property>
+                            </systemProperties>
                             <includes>
                                 <include>**/*IntegrationTestCase.java</include>
                             </includes>
@@ -152,14 +167,14 @@
                         <configuration>
                             <scanIntervalSeconds>0</scanIntervalSeconds>
                             <stopKey>STOP</stopKey>
-                            <stopPort>8086</stopPort>
+                            <stopPort>8286</stopPort>
                             <contextPath>/train-timetables</contextPath>
                             <useTestClasspath>true</useTestClasspath>
 
                             <systemProperties>
                                 <systemProperty>
                                     <name>jetty.port</name>
-                                    <value>8082</value>
+                                    <value>${jetty.port}</value>
                                 </systemProperty>
                             </systemProperties>
                         </configuration>
