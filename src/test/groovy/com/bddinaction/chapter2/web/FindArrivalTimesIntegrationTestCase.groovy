@@ -42,7 +42,6 @@ class FindArrivalTimesIntegrationTestCase extends Specification {
             response.getStatusLine().getStatusCode() == HttpStatus.SC_OK
 
         and: "the proposed times should be equal to the actual times"
-
             String json = EntityUtils.toString(response.getEntity())
             logger.info("Response: {}", json)
 

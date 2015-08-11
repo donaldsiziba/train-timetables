@@ -1,11 +1,13 @@
 package com.bddinaction.chapter2.web
 
+import com.bddinaction.chapter2.utilities.JsonBuilder
 import org.apache.http.HttpStatus
 import org.apache.http.client.methods.CloseableHttpResponse
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClientBuilder
 import org.apache.http.util.EntityUtils
+import org.joda.time.LocalTime
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import spock.lang.Specification
@@ -40,16 +42,22 @@ class FindEstimatedArrivalTimeIntegrationTestCase extends Specification {
         then: "the response code should 200"
             response.getStatusLine().getStatusCode() == HttpStatus.SC_OK
 
-        and: "the arrival time is 8:26"
+        and: "the arrival time is $arrivalTime"
             def json = EntityUtils.toString(response.getEntity())
             logger.info("Response: {}", json)
 
-            json == arrivalTime
+        new JsonBuilder().build(json, LocalTime.class) == at(arrivalTime)
 
         where:
         departure     | destination | depatureTime | line          | arrivalTime
-        'Midrand'     | 'Park'      | '8:05'       | 'North-South' | '[ 8, 26, 0, 0 ]'
-        'Rhodesfield' | 'Sandton'   | '8:10'       | 'East-West'   | '[ 8, 22, 0, 0 ]'
-        'Malboro'     | 'OR Tambo'  | '8:15'       | 'Airport'     | '[ 8, 28, 0, 0 ]'
+        'Midrand'     | 'Park'      | '8:05'       | 'North-South' | '8:26'
+        'Rhodesfield' | 'Sandton'   | '8:10'       | 'East-West'   | '8:22'
+        'Malboro'     | 'OR Tambo'  | '8:15'       | 'Airport'     | '8:28'
+    }
+
+    def at(String time) {
+        def hour = Integer.valueOf(time.split(':')[0])
+        def minute = Integer.valueOf(time.split(':')[1])
+        new LocalTime(hour.toInteger(), minute.toInteger())
     }
 }
