@@ -58,6 +58,6 @@ class FindEstimatedArrivalTimeIntegrationTestCase extends Specification {
     def at(String time) {
         def hour = Integer.valueOf(time.split(':')[0])
         def minute = Integer.valueOf(time.split(':')[1])
-        new LocalTime(hour.toInteger(), minute.toInteger())
+        new LocalTime(hour, minute)
     }
 }
