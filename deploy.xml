@@ -1,0 +1,117 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>za.co.khalipha.deployment</groupId>
+    <artifactId>train-timetables-deploy</artifactId>
+    <version>2014.08.05-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Train Timetables Deploy</name>
+
+    <properties>
+        <version.number>1.0.0-SNAPSHOT</version.number>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.1</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludeTransitive>true</excludeTransitive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.bddinaction.chapter2</groupId>
+            <artifactId>train-timetables</artifactId>
+            <version>${version.number}</version>
+            <type>war</type>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>glassfish</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <properties>
+                <glassfish.home>/opt/glassfish</glassfish.home>
+                <glassfish.user>admin</glassfish.user>
+                <glassfish.domain>domain1</glassfish.domain>
+                <glassfish.passfile>${glassfish.home}/domains/${glassfish.domain}/config/domain-passwords</glassfish.passfile>
+                <glassfish.admin.port>10048</glassfish.admin.port>
+                <glassfish.http.port>10080</glassfish.http.port>
+            </properties>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.glassfish.maven.plugin</groupId>
+                        <artifactId>maven-glassfish-plugin</artifactId>
+                        <version>2.1</version>
+                        <configuration>
+                            <glassfishDirectory>${glassfish.home}</glassfishDirectory>
+                            <user>${glassfish.user}</user>
+                            <passwordFile>${glassfish.passfile}</passwordFile>
+                            <echo>true</echo>
+                            <domain>
+                                <name>${glassfish.domain}</name>
+                                <adminPort>${glassfish.admin.port}</adminPort>
+                                <httpPort>${glassfish.http.port}</httpPort>
+                            </domain>
+                            <components>
+                                <component>
+                                    <name>train-timetables</name>
+                                    <artifact>target/dependency/train-timetables-${version.number}.war</artifact>
+                                </component>
+                            </components>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>jboss</id>
+
+            <properties>
+                <jboss.host>localhost</jboss.host>
+                <jboss.port>28080</jboss.port>
+                <jboss.user>admin</jboss.user>
+                <jboss.password>password</jboss.password>
+            </properties>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jboss.as.plugins</groupId>
+                        <artifactId>jboss-as-maven-plugin</artifactId>
+                        <version>7.5.Final</version>
+                        <configuration>
+                            <username>${jboss.user}</username>
+                            <password>${jboss.password}</password>
+                            <filename>dependency/train-timetables-${version.number}.war</filename>
+                            <name>train-timetables.war</name>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
