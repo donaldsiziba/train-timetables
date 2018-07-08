@@ -9,4 +9,4 @@ I have done additional work to expose the original services through a REST API.
 
 More documentation to follow.
 
->Note: For information on how to run the _Acceptance Tests_ and generate related reports, refer to the _AcceptanceTests.md_ file
+>Note: For information on how to run the _Acceptance Tests_ and view the generated reports, refer to the _AcceptanceTests.md_ file.
