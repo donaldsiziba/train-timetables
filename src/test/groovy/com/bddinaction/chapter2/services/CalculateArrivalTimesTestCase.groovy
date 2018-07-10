@@ -15,8 +15,7 @@ class CalculateArrivalTimesTestCase extends Specification {
             itineraryService.setTimetableService(timetableService)
             def northSouthLineFromHatfield = Line.named("North-South").departingFrom("Hatfield")
             timetableService.findLinesThrough("Midrand","Park") >> [northSouthLineFromHatfield]
-            timetableService.findArrivalTimes(northSouthLineFromHatfield, "Midrand") >>
-                [at(7,55), at(8,05), at(8,15), at(8,25), at(8,35), at(8,45), at(8,55), at(9,05)]
+            timetableService.findArrivalTimes(northSouthLineFromHatfield, "Midrand") >> [at(7,55), at(8,05), at(8,15), at(8,25), at(8,35), at(8,45), at(8,55), at(9,05)]
 
          when: "I want to travel from Midrand to Park at 8:00"
             def proposedTrainTimes = itineraryService.findNextDepartures("Midrand", "Park", at(8,00))
