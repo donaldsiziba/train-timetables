@@ -38,19 +38,13 @@ public class OptimalItinerarySteps {
 
     @When("I want to travel from $departure to $destination at $startTime")
     public void whenIWantToTravel(String departure, String destination, LocalTime startTime) throws IOException {
-        String uri = String.format("%s://%s:%s/train-timetables/itinerary/departuretimes/from/%s/to/%s/at/%s", protocol, host, port, departure, destination, startTime);
-
-        logger.info("URI: {}", uri);
-
         SerenityRest.when()
-                        .get(uri);
+                        .get(String.format("%s://%s:%s/train-timetables/itinerary/departuretimes/from/%s/to/%s/at/%s", protocol, host, port, departure, destination, startTime));
     }
 
     @Then("I should be told about the trains at: $expectedTrainTimes")
     public void shouldBeInformedAbout(List<LocalTime> expectedTrainTimes) throws IOException {
-        String response = SerenityRest.then().extract().response().asString();
-
-        assertThat(new JsonBuilder().<List<LocalTime>>build(response, new TypeReference<List<LocalTime>>() {})).isEqualTo(expectedTrainTimes);
+        assertThat(new JsonBuilder().<List<LocalTime>>build(SerenityRest.then().extract().response().asString(), new TypeReference<List<LocalTime>>() {})).isEqualTo(expectedTrainTimes);
     }
 }
 
