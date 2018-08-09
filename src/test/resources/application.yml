@@ -1,0 +1,9 @@
+appender:
+  rolling:
+    filePattern: target/logs/train-timetables.log.%d.gz
+    policies:
+      time:
+        type: TimeBasedTriggeringPolicy
+
+logging:
+  file: target/logs/train-timetables.log

@@ -16,9 +16,7 @@ public class WebMVCConfiguration extends DelegatingWebMvcConfiguration {
 
     @Bean
     MappingJackson2HttpMessageConverter jackson2HttpMessageConverter() {
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setObjectMapper(objectMapper());
-        return converter;
+        return new MappingJackson2HttpMessageConverter(objectMapper());
     }
 
     @Bean

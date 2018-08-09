@@ -1,12 +1,2 @@
-appender:
-  rolling:
-    filePattern: logs/train-timetables.log.%d.gz
-    policies:
-      time:
-        type: TimeBasedTriggeringPolicy
-
-logging:
-  file: logs/train-timetables.log
-
 server:
   port: 8280
