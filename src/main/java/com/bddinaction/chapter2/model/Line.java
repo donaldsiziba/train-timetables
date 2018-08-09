@@ -2,7 +2,6 @@ package com.bddinaction.chapter2.model;
 
 import com.google.common.collect.ImmutableList;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

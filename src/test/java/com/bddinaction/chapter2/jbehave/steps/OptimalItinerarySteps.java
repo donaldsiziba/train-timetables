@@ -33,13 +33,17 @@ public class OptimalItinerarySteps {
     }
 
     @Given("$line line trains from $lineStart leave $departure for $destination at $departureTimes")
-    public void givenArrivingTrains(String line, String lineStart, String departure, String destination, List<LocalTime> departureTimes) {
+    public void givenArrivingTrains(String line,
+                                    String lineStart,
+                                    String departure,
+                                    String destination,
+                                    List<LocalTime> departureTimes) {
     }
 
     @When("I want to travel from $departure to $destination at $startTime")
     public void whenIWantToTravel(String departure, String destination, LocalTime startTime) throws IOException {
         SerenityRest.when()
-                        .get(String.format("%s://%s:%s/train-timetables/itinerary/departuretimes/from/%s/to/%s/at/%s", protocol, host, port, departure, destination, startTime));
+                .get(String.format("%s://%s:%s/itinerary/departuretimes/from/%s/to/%s/at/%s", protocol, host, port, departure, destination, startTime));
     }
 
     @Then("I should be told about the trains at: $expectedTrainTimes")

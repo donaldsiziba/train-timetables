@@ -32,7 +32,7 @@ class FindArrivalTimesIntegrationTestCase extends Specification {
 
     def "find out what time the next trains for my destination station leave"() {
         given: "the following resource uri"
-            final String uri = "$protocol://$host:$port/train-timetables/itinerary/departuretimes/from/Midrand/to/Park/at/8:00"
+            final String uri = "$protocol://$host:$port/itinerary/departuretimes/from/Midrand/to/Park/at/8:00"
 
         when: "the resource uri is invoked"
             final CloseableHttpClient client = HttpClientBuilder.create().build()

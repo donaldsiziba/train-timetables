@@ -33,7 +33,7 @@ class FindEstimatedArrivalTimeIntegrationTestCase extends Specification {
     @Unroll("The estimated arrival time on the #line line departing #departure at #depatureTime destined for #destination")
     def "find out what time I will arrive at my destination"() {
         given: "the following resource uri"
-            final String uri = "$protocol://$host:$port/train-timetables/itinerary/arrivaltime/line/$line/to/$destination/at/$depatureTime".replaceAll("\\s", "%20")
+            final String uri = "$protocol://$host:$port/itinerary/arrivaltime/line/$line/to/$destination/at/$depatureTime".replaceAll("\\s", "%20")
 
         when: "the resource uri is invoked"
             final CloseableHttpClient client = HttpClientBuilder.create().build()

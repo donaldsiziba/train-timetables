@@ -43,12 +43,7 @@ public class InMemoryTimetableService implements TimetableService {
     }
 
     private Line lineMatching(Line requestedLine) {
-        for(Line line : lines) {
-            if (line.equals(requestedLine)) {
-                return line;
-            }
-        }
-        return null;
+        return lines.stream().filter(line -> line.equals(requestedLine)).findFirst().orElse(null);
     }
 
     @Override
