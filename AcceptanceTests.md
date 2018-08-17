@@ -1,7 +1,7 @@
 # Acceptance Tests
 To run the _Acceptance Test Suite_, type the following in command line:
 ```bash
-mvn -P container-tests clean verify
+mvn -P acceptance-tests clean verify
 ```
 
 ## Acceptance Test Reports
