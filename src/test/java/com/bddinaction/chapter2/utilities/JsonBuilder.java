@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import org.slf4j.Logger;
@@ -17,12 +16,11 @@ import java.io.IOException;
  */
 public class JsonBuilder {
     final Logger logger = LoggerFactory.getLogger(JsonBuilder.class);
-    private ObjectMapper mapper;
+    private final ObjectMapper mapper;
 
     public JsonBuilder() {
         mapper = new ObjectMapper();
         mapper.registerModule(new JodaModule());
-        mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, true);
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         mapper.setAnnotationIntrospector(new JacksonAnnotationIntrospector());
     }
@@ -33,7 +31,7 @@ public class JsonBuilder {
             value = mapper.writeValueAsString(object);
             logger.info(value);
         } catch (JsonProcessingException e) {
-            logger.error("Exception thrown... {}", e);
+            logger.error("Exception thrown while converting object to JSON", e);
         }
         return value;
     }
@@ -44,7 +42,7 @@ public class JsonBuilder {
             object = mapper.readValue(value, clazz);
             logger.info(mapper.writeValueAsString(object));
         } catch (IOException e) {
-            logger.error("Exception thrown... {}", e);
+            logger.error("Exception thrown while converting object to JSON", e);
         }
         return object;
     }
@@ -54,7 +52,7 @@ public class JsonBuilder {
         try {
             object = mapper.readValue(value, reference);
         } catch (IOException e) {
-            logger.error("Exception thrown... {}", e);
+            logger.error("Exception thrown: ", e);
         }
         return object;
     }

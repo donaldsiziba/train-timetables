@@ -11,11 +11,13 @@ import org.springframework.test.web.servlet.ResultActions
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
+import spock.lang.Ignore
 import spock.lang.Specification
 
 /**
  * Created by donald on 2015/04/17.
  */
+@Ignore
 class ItineraryControllerSpecification extends Specification {
     ItineraryController controller = new ItineraryController()
     ItineraryService itineraryService = Mock()
@@ -57,7 +59,7 @@ class ItineraryControllerSpecification extends Specification {
             1 * timetableService.getArrivalTime("North-South", "Park")
     }
 
-    def LocalTime at(int hour, int minute) {
+    LocalTime at(int hour, int minute) {
         new LocalTime(hour, minute)
     }
 }

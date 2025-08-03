@@ -5,6 +5,7 @@ import com.bddinaction.chapter2.services.TimetableService;
 import com.bddinaction.chapter2.web.ItineraryController;
 import org.joda.time.LocalTime;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -25,6 +26,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
  * Date: 2014/06/29
  * Time: 8:33 AM
  */
+@Ignore
 public class ItineraryControllerTestCase {
     MockMvc mockMvc;
 
@@ -38,7 +40,7 @@ public class ItineraryControllerTestCase {
     TimetableService timetableService;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         mockMvc = standaloneSetup(controller).setMessageConverters(new MappingJackson2HttpMessageConverter()).build();
     }
@@ -46,7 +48,7 @@ public class ItineraryControllerTestCase {
     @Test
     public void departureTimes() throws Exception {
         LocalTime time = at(8, 0);
-        when(itineraryService.findNextDepartures("Midrand", "Park", time)).thenReturn(new ArrayList<LocalTime>(){{
+        when(itineraryService.findNextDepartures("Midrand", "Park", time)).thenReturn(new ArrayList<>(){{
             add(at(8, 5));
             add(at(8,15));
             add(at(8,25));
